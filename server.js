@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import pool from './db/pool.js';
+import initDB from './db/initDB.js';
 
 // environment config
 dotenv.config();
@@ -16,20 +16,14 @@ app.use(express.json());
 // set templating language to ejs
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-    res.render('index', { text: 'World' });
-});
-
-pool.query('SELECT NOW()', (err, res) => {
-    if (err) {
-        console.error('Error executing query', err.stack);
-    } else {
-        console.log('Query result:', res.rows);
-    }
-    pool.end();
-});
-
-// run server
-app.listen(PORT, () => {
-    `Server running on port ${PORT}`;
-});
+// database initialization
+initDB()
+    .then(() => {
+        // run server
+        app.listen(PORT, () => {
+            `Server running on port ${PORT}`;
+        });
+    })
+    .catch((error) => {
+        console.error('Failed to initialize database:', error);
+    });
