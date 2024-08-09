@@ -4,8 +4,18 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+        <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
-        <h1>Hello <%= locals.text || 'No Value' %></h1>
+        <% if (locals.items && locals.items.length > 0) { %> <%
+        items.forEach(item => { %>
+        <ul>
+            <h2><%= item.name %></h2>
+            <li><%= item.price %></li>
+            <img src="<%= item.image_url %>" alt="<%= item.name %>" />
+        </ul>
+        <% }) %> <% } else { %>
+        <h1>No items available.</h1>
+        <% } %>
     </body>
 </html>
