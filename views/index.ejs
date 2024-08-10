@@ -3,19 +3,20 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <link rel="icon" type="image/icon" href="/horn-of-odin.png" />
+        <title>Odin Market</title>
         <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
-        <% if (locals.items && locals.items.length > 0) { %> <%
-        items.forEach(item => { %>
-        <ul>
-            <h2><%= item.name %></h2>
-            <li><%= item.price %></li>
-            <img src="<%= item.image_url %>" alt="<%= item.name %>" />
-        </ul>
-        <% }) %> <% } else { %>
-        <h1>No items available.</h1>
-        <% } %>
+        <div id="header"><a href="/allItems">OdinMarket</a></div>
+
+        <div id="wrapper">
+            <!-- SIDEBAR -->
+            <%- include('sidebar', { allCategories: allCategories, activePage:
+            locals.activePage || '' }) %>
+
+            <!-- MAIN CONTENT -->
+            <%- include('main', { items: items }) %>
+        </div>
     </body>
 </html>
