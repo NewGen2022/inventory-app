@@ -1,0 +1,36 @@
+<div id="main">
+    <% if (items && items.length === 1) { %>
+    <!-- Template for one item with description -->
+    <div class="single-card">
+        <div class="item-img">
+            <img src="<%= items[0].image_url %>" alt="<%= items[0].name %>" />
+        </div>
+        <div class="item-info">
+            <h1><%= items[0].name %></h1>
+            <p><%= items[0].description %></p>
+            <div class="item-price"><%= items[0].price %>$</div>
+            <div class="buttons">
+                <button class="edit">Edit</button>
+                <button class="delete">Delete</button>
+            </div>
+        </div>
+    </div>
+    <% } else if (items && items.length > 1) { %>
+    <!-- Template for multiple items -->
+    <% items.forEach(item => { %>
+    <div class="card">
+        <div class="card-img">
+            <img src="<%= item.image_url %>" alt="<%= item.name %>" />
+        </div>
+        <div class="card-info">
+            <div class="card-name"><%= item.name %></div>
+            <div class="card-price"><%= item.price %>$</div>
+            <a href="/allItems/item/<%= item.id %>">
+                <button class="card-btn">View details</button>
+            </a>
+        </div>
+    </div>
+    <% }) %> <% } else { %>
+    <h1>No items available.</h1>
+    <% } %>
+</div>
