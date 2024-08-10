@@ -1,0 +1,32 @@
+<div id="sidebar">
+    <a href="/allItems"
+        ><div
+            class="nav-item <%= activePage === 'all-items' ? 'active' : '' %>"
+        >
+            All items
+        </div>
+    </a>
+    <% allCategories.forEach(category => { %>
+    <a href="/allItems/category/<%= category.id %>">
+        <div
+            class="nav-item <%= parseInt(activePage) === category.id ? 'active' : '' %>"
+        >
+            <%= category.name %>
+        </div>
+    </a>
+    <% }) %>
+    <div id="horizontal-line"></div>
+    <a href=""
+        ><div
+            class="nav-item <%= activePage === 'add-category' ? 'active' : '' %>"
+        >
+            Add category
+        </div>
+    </a>
+
+    <a href=""
+        ><div class="nav-item <%= activePage === 'add-item' ? 'active' : '' %>">
+            Add item
+        </div>
+    </a>
+</div>
