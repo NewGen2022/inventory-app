@@ -4,6 +4,7 @@ const getAllItemsQuery = async () => {
     try {
         const allItems = await pool.query(`
                 SELECT 
+                    items.id,
                     items.name, 
                     items.price, 
                     items.image_url 
@@ -16,10 +17,11 @@ const getAllItemsQuery = async () => {
     }
 };
 
-const getAllCategoryItemsById = async (id) => {
+const getAllCategoryItemsByIdQuery = async (id) => {
     try {
         const query = `
             SELECT 
+                items.id,
                 items.name, 
                 items.price, 
                 items.image_url
@@ -37,10 +39,11 @@ const getAllCategoryItemsById = async (id) => {
     }
 };
 
-const getItemById = async (id) => {
+const getItemByIdQuery = async (id) => {
     try {
         const query = `
             SELECT 
+                items.id,
                 items.name, 
                 items.description, 
                 items.price, 
@@ -64,4 +67,14 @@ const getItemById = async (id) => {
     }
 };
 
-export { getAllItemsQuery, getAllCategoryItemsById, getItemById };
+const getAllCategoriesQuery = async () => {
+    const allCategories = await pool.query('SELECT * FROM categories');
+    return allCategories.rows;
+};
+
+export {
+    getAllItemsQuery,
+    getAllCategoryItemsByIdQuery,
+    getItemByIdQuery,
+    getAllCategoriesQuery,
+};
