@@ -6,17 +6,22 @@
         <link rel="icon" type="image/icon" href="/horn-of-odin.png" />
         <title>Odin Market</title>
         <link rel="stylesheet" href="/styles.css" />
+        <link rel="stylesheet" href="/forms.css" />
     </head>
     <body>
         <div id="header"><a href="/allItems">OdinMarket</a></div>
 
         <div id="wrapper">
             <!-- SIDEBAR -->
-            <%- include('sidebar', { allCategories: allCategories, activePage:
-            locals.activePage || '' }) %>
+            <%- include('sidebar', { allCategories: locals.allCategories || [],
+            activePage: locals.activePage || '' }) %>
 
-            <!-- MAIN CONTENT -->
-            <%- include('main', { items: items }) %>
+            <!-- MAIN CONTENT OR FORM -->
+            <% if (locals.form) { %>
+            <!-- Render the form if the 'form' variable is set -->
+            <%- include(form, { title: locals.title }) %> <% } else { %>
+            <!-- Render the main content if no form is to be displayed -->
+            <%- include('main', { items: items }) %> <% } %>
         </div>
     </body>
 </html>
