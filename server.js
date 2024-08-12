@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import initDB from './db/initDB.js';
 import homePageRouter from './routes/homePage.js';
 import categoriesRouter from './routes/categories.js';
-import addFormRouter from './routes/addForm.js';
+import formsRouter from './routes/forms.js';
 
 // environment config
 dotenv.config();
@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public'))); // serve static files f
 // routes
 app.use('/', homePageRouter);
 app.use('/allItems', categoriesRouter);
-app.use('/add', addFormRouter);
+app.use('/form', formsRouter);
 
 // set templating language to ejs
 app.set('view engine', 'ejs');
