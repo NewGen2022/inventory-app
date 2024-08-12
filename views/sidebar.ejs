@@ -16,7 +16,7 @@
     </a>
     <% }) %>
     <div id="horizontal-line"></div>
-    <a href=""
+    <a href="/form/category/create"
         ><div
             class="nav-item <%= activePage === 'add-category' ? 'active' : '' %>"
         >
@@ -24,9 +24,17 @@
         </div>
     </a>
 
-    <a href=""
+    <a href="/form/item/create"
         ><div class="nav-item <%= activePage === 'add-item' ? 'active' : '' %>">
             Add item
+        </div>
+    </a>
+
+    <a href="/form/category/delete"
+        ><div
+            class="nav-item <%= activePage === 'add-category' ? 'active' : '' %>"
+        >
+            Delete category
         </div>
     </a>
 </div>
