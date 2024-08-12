@@ -25,9 +25,14 @@ body {
     font-size: 16px;
 }
 
+button {
+    cursor: pointer;
+}
+
 #wrapper {
     display: flex;
     height: 100%;
+    color: white;
 }
 
 /* SIDEBAR STYLES */
@@ -161,6 +166,7 @@ body {
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
+    color: #242424;
 }
 
 .item-img img {
@@ -194,26 +200,27 @@ body {
     border: none;
     border-radius: 5px;
     font-size: 16px;
-    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .buttons .edit {
-    background-color: #30ab34; /* Green */
-    color: white;
+    border: 3px solid #23c728;
+    background-color: white;
 }
 
 .buttons .edit:hover {
     background-color: #45a049;
+    color: white;
 }
 
 .buttons .delete {
-    background-color: #f44336; /* Red */
-    color: white;
+    border: 3px solid #f52e20;
+    background-color: white;
 }
 
 .buttons .delete:hover {
     background-color: #e53935;
+    color: white;
 }
 
 .buttons .delete:active,
