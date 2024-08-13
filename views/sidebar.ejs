@@ -18,21 +18,23 @@
     <div id="horizontal-line"></div>
     <a href="/form/category/create"
         ><div
-            class="nav-item <%= activePage === 'add-category' ? 'active' : '' %>"
+            class="nav-item <%= activePage === 'addCategoryForm' ? 'active' : '' %>"
         >
             Add category
         </div>
     </a>
 
     <a href="/form/item/create"
-        ><div class="nav-item <%= activePage === 'add-item' ? 'active' : '' %>">
+        ><div
+            class="nav-item <%= activePage === 'addItemForm' ? 'active' : '' %>"
+        >
             Add item
         </div>
     </a>
 
     <a href="/form/category/delete"
         ><div
-            class="nav-item <%= activePage === 'add-category' ? 'active' : '' %>"
+            class="nav-item <%= activePage === 'deleteCategoryForm' ? 'active' : '' %>"
         >
             Delete category
         </div>
