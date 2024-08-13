@@ -21,7 +21,7 @@
     <!-- Validate input, so it would not be empty -->
     <script>
         document
-            .getElementById('add category-form')
+            .querySelector('.add-form.category-form')
             .addEventListener('submit', function (event) {
                 const inputField = document.getElementById('category-name');
                 const trimmedValue = inputField.value.trim();
