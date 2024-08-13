@@ -9,6 +9,10 @@
             <h1><%= items[0].name %></h1>
             <p><%= items[0].description %></p>
             <div class="item-price"><%= items[0].price %>$</div>
+            <div class="item-category">
+                <span><b>Category:</b></span>
+                <%= items[0].category_name || "Not in any category" %>
+            </div>
             <div class="buttons">
                 <button class="edit">Edit</button>
                 <button class="delete">Delete</button>
