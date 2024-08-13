@@ -77,7 +77,7 @@ const getAllCategoriesQuery = async () => {
     return allCategories.rows;
 };
 
-// Block to submit something to database
+// Block to add something to database
 const addNewCategoryQuery = async (categoryName) => {
     try {
         const query =
@@ -102,13 +102,13 @@ const addNewCategoryQuery = async (categoryName) => {
     }
 };
 
-// Block to add from database
+// Block to delete something from database
 const deleteCategoryQuery = async (categoryId) => {
     try {
         const query = `DELETE FROM categories WHERE id = $1 RETURNING name`;
-        const values = [categoryId];
+        const categoryToDelete = [categoryId];
 
-        const result = await pool.query(query, values);
+        const result = await pool.query(query, categoryToDelete);
         const categoryDeleted = result.rows[0]?.name;
 
         if (categoryDeleted) {
@@ -126,6 +126,29 @@ const deleteCategoryQuery = async (categoryId) => {
     }
 };
 
+const deleteItemQueryById = async (itemId) => {
+    try {
+        const query = `DELETE FROM items WHERE id = $1 RETURNING name`;
+        const itemToDelete = [itemId];
+
+        const result = await pool.query(query, itemToDelete);
+        const itemDeleted = result.rows[0]?.name;
+
+        if (itemDeleted) {
+            console.log(`${itemDeleted} successfully deleted from items`);
+            return true;
+        } else {
+            console.log(`No category found with ID ${itemId}`);
+            return false;
+        }
+    } catch (err) {
+        console.error('Error deleting category:', err);
+        throw err;
+    }
+};
+
+// Block to update something in database
+
 export {
     getAllItemsQuery,
     getAllCategoryItemsByIdQuery,
@@ -133,4 +156,5 @@ export {
     getAllCategoriesQuery,
     addNewCategoryQuery,
     deleteCategoryQuery,
+    deleteItemQueryById,
 };
