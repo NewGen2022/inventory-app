@@ -11,6 +11,8 @@ const getAllItemsQuery = async () => {
                     items.image_url 
                 FROM 
                     items
+                ORDER BY 
+                    items.name;
             `);
         return allItems.rows;
     } catch (err) {
@@ -52,7 +54,7 @@ const getItemByIdQuery = async (id) => {
                 categories.name AS category_name 
             FROM 
                 items 
-            INNER JOIN 
+            LEFT JOIN 
                 categories 
             ON 
                 items.category_id = categories.id
@@ -69,7 +71,9 @@ const getItemByIdQuery = async (id) => {
 };
 
 const getAllCategoriesQuery = async () => {
-    const allCategories = await pool.query('SELECT * FROM categories');
+    const allCategories = await pool.query(
+        'SELECT * FROM categories ORDER BY name'
+    );
     return allCategories.rows;
 };
 
@@ -77,15 +81,48 @@ const getAllCategoriesQuery = async () => {
 const addNewCategoryQuery = async (categoryName) => {
     try {
         const query =
-            'INSERT INTO categories(name) VALUES($1) ON CONFLICT (name) DO NOTHING RETURNING id';
-        const values = [categoryName];
+            'INSERT INTO categories(name) VALUES($1) ON CONFLICT (name) DO NOTHING RETURNING name';
+        const categoryToAdd = [categoryName];
 
-        await pool.query(query, values);
+        const result = await pool.query(query, categoryToAdd);
+        const categoryAdded = result.rows[0]?.name;
 
-        return true;
+        if (categoryAdded) {
+            console.log(`${categoryAdded} successfully added to categories`);
+            return true;
+        } else {
+            console.log(
+                `Category "${categoryName}" already exists or was not added`
+            );
+            return false;
+        }
     } catch (err) {
-        console.error('Error inserting category:', error);
-        throw error;
+        console.error('Error inserting category:', err);
+        throw err;
+    }
+};
+
+// Block to add from database
+const deleteCategoryQuery = async (categoryId) => {
+    try {
+        const query = `DELETE FROM categories WHERE id = $1 RETURNING name`;
+        const values = [categoryId];
+
+        const result = await pool.query(query, values);
+        const categoryDeleted = result.rows[0]?.name;
+
+        if (categoryDeleted) {
+            console.log(
+                `${categoryDeleted} successfully deleted from categories`
+            );
+            return true;
+        } else {
+            console.log(`No category found with ID ${categoryId}`);
+            return false;
+        }
+    } catch (err) {
+        console.error('Error deleting category:', err);
+        throw err;
     }
 };
 
@@ -95,4 +132,5 @@ export {
     getItemByIdQuery,
     getAllCategoriesQuery,
     addNewCategoryQuery,
+    deleteCategoryQuery,
 };
