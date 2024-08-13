@@ -1,54 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Odin Market</title>
-    </head>
-    <body>
-        <div class="form-container">
-            <h1><%= locals.title %></h1>
-            <form
-                id="new-category-form"
-                action="/form/category/create"
-                method="POST"
-            >
-                <label for="category-name">Category Name</label>
-                <input
-                    type="text"
-                    id="category-name"
-                    name="newCategoryName"
-                    placeholder="Enter category name..."
-                    required
-                />
-                <button class="submit-form-btn" type="submit">Submit</button>
-            </form>
-        </div>
+<body>
+    <div class="form-container">
+        <h1><%= locals.title %></h1>
+        <form
+            class="add-form category-form"
+            action="/form/category/create"
+            method="POST"
+        >
+            <label for="category-name">Category Name</label>
+            <input
+                type="text"
+                id="category-name"
+                name="newCategoryName"
+                placeholder="Enter category name..."
+                required
+            />
+            <button class="add-btn form-btn" type="submit">Submit</button>
+        </form>
+    </div>
 
-        <!-- Validate input, so it would not be empty -->
-        <script>
-            document
-                .getElementById('new-category-form')
-                .addEventListener('submit', function (event) {
-                    const inputField = document.getElementById('category-name');
-                    const trimmedValue = inputField.value.trim();
+    <!-- Validate input, so it would not be empty -->
+    <script>
+        document
+            .getElementById('add category-form')
+            .addEventListener('submit', function (event) {
+                const inputField = document.getElementById('category-name');
+                const trimmedValue = inputField.value.trim();
 
-                    // Regular expression to check for numbers
-                    const containsNumbers = /\d/.test(trimmedValue);
+                // Regular expression to check for numbers
+                const containsNumbers = /\d/.test(trimmedValue);
 
-                    if (trimmedValue === '') {
-                        // Prevent form submission if input is empty after trimming
-                        event.preventDefault();
-                        alert('Category name cannot be empty or whitespace.');
-                    } else if (containsNumbers) {
-                        // Prevent form submission if input contains numbers
-                        event.preventDefault();
-                        alert('Category name cannot contain numbers.');
-                    } else {
-                        // Set the value to the trimmed version
-                        inputField.value = trimmedValue;
-                    }
-                });
-        </script>
-    </body>
-</html>
+                if (trimmedValue === '') {
+                    // Prevent form submission if input is empty after trimming
+                    event.preventDefault();
+                    alert('Category name cannot be empty or whitespace.');
+                } else if (containsNumbers) {
+                    // Prevent form submission if input contains numbers
+                    event.preventDefault();
+                    alert('Category name cannot contain numbers.');
+                } else {
+                    // Set the value to the trimmed version
+                    inputField.value = trimmedValue;
+                }
+            });
+    </script>
+</body>
