@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS categories (
 
 CREATE TABLE IF NOT EXISTS items (
     id SERIAL PRIMARY KEY,
-    category_id INTEGER NOT NULL REFERENCES categories(id),
+    category_id INTEGER REFERENCES categories(id) ON DELETE SET NULL,
     name VARCHAR(100) NOT NULL UNIQUE,
     description TEXT NOT NULL,
     price NUMERIC(10, 2) NOT NULL,
