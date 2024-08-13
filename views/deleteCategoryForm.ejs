@@ -1,11 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body>
-        <%= locals.text || "2" %>
-    </body>
-</html>
+<body>
+    <div class="form-container">
+        <h1><%= locals.title %></h1>
+        <label for="category-toDelete">Select category to delete</label>
+        <form
+            class="delete-form category-form"
+            action="/form/category/delete"
+            method="POST"
+        >
+            <% if (locals.allCategories.length !== 0) { %>
+            <select name="categoryId" id="category-to-delete">
+                <% locals.allCategories.forEach((category) => { %>
+                <option value="<%= category.id %>"><%= category.name %></option>
+                <% }) %> <% } else { %>
+                <div class="no-categories">No categories to delete</div>
+                <% } %>
+            </select>
+            <button class="delete-btn form-btn" type="submit">Delete</button>
+        </form>
+    </div>
+</body>
