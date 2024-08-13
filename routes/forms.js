@@ -2,6 +2,7 @@ import express from 'express';
 import {
     newForm,
     handleCategoryAdding,
+    handleCategoryDeleting,
 } from '../controllers/formsController.js';
 
 const router = express.Router();
@@ -10,6 +11,7 @@ const router = express.Router();
 router.get('/:formType/:action', newForm);
 
 // Route to handle form submission
-router.post('/:formType/:action', handleCategoryAdding);
+router.post('/category/create', handleCategoryAdding);
+router.post('/category/delete', handleCategoryDeleting);
 
 export default router;
