@@ -18,11 +18,23 @@ input[type='text'] {
     border: 1px solid grey;
     font-size: 16px;
 }
-
 input[type='text']:focus {
     /* border: 2px solid rgb(109, 109, 255); */
     box-shadow: 0 0 0 1px rgb(98, 226, 255), 0 0 0 2px rgb(98, 226, 255, 0.5),
         0 0 0 4px rgb(98, 226, 255, 0.25);
+}
+
+#category-to-delete {
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+#category-to-delete:focus {
+    /* border: 2px solid rgb(109, 109, 255); */
+    box-shadow: 0 0 0 1px rgb(255, 0, 0), 0 0 0 2px rgb(255, 0, 0, 0.5),
+        0 0 0 4px rgb(255, 0, 0, 0.25);
 }
 
 /* BUTTONS STYLES */
