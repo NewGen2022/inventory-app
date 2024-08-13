@@ -1,40 +1,73 @@
-<div id="main">
-    <% if (items && items.length === 1) { %>
-    <!-- Template for one item with description -->
-    <div class="single-card">
-        <div class="item-img">
-            <img src="<%= items[0].image_url %>" alt="<%= items[0].name %>" />
-        </div>
-        <div class="item-info">
-            <h1><%= items[0].name %></h1>
-            <p><%= items[0].description %></p>
-            <div class="item-price"><%= items[0].price %>$</div>
-            <div class="item-category">
-                <span><b>Category:</b></span>
-                <%= items[0].category_name || "Not in any category" %>
+<body>
+    <div id="main">
+        <% if (items && items.length === 1) { %>
+        <!-- Template for one item with description -->
+        <form
+            id="single-card-form"
+            action="/allItems/item/<%= items[0].id %>"
+            method="POST"
+        >
+            <div class="single-card">
+                <div class="item-img">
+                    <img
+                        src="<%= items[0].image_url %>"
+                        alt="<%= items[0].name %>"
+                    />
+                </div>
+                <div class="item-info">
+                    <h1><%= items[0].name %></h1>
+                    <p><%= items[0].description %></p>
+                    <div class="item-price"><%= items[0].price %>$</div>
+                    <div class="item-category">
+                        <span><b>Category:</b></span>
+                        <%= items[0].category_name || "Not in any category" %>
+                    </div>
+                    <div class="buttons">
+                        <button
+                            class="edit"
+                            type="submit"
+                            name="action"
+                            value="edit"
+                        >
+                            Edit
+                        </button>
+                        <button
+                            class="delete"
+                            type="submit"
+                            name="action"
+                            value="delete"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="buttons">
-                <button class="edit">Edit</button>
-                <button class="delete">Delete</button>
+        </form>
+        <% } else if (items && items.length > 1) { %>
+        <!-- Template for multiple items -->
+        <% items.forEach(item => { %>
+        <div class="card">
+            <div class="card-img">
+                <img src="<%= item.image_url %>" alt="<%= item.name %>" />
+            </div>
+            <div class="card-info">
+                <div class="card-name"><%= item.name %></div>
+                <div class="card-price"><%= item.price %>$</div>
+                <a href="/allItems/item/<%= item.id %>">
+                    <button class="card-btn">View details</button>
+                </a>
             </div>
         </div>
+        <% }) %> <% } else { %>
+        <h1>No items available.</h1>
+        <% } %>
     </div>
-    <% } else if (items && items.length > 1) { %>
-    <!-- Template for multiple items -->
-    <% items.forEach(item => { %>
-    <div class="card">
-        <div class="card-img">
-            <img src="<%= item.image_url %>" alt="<%= item.name %>" />
-        </div>
-        <div class="card-info">
-            <div class="card-name"><%= item.name %></div>
-            <div class="card-price"><%= item.price %>$</div>
-            <a href="/allItems/item/<%= item.id %>">
-                <button class="card-btn">View details</button>
-            </a>
-        </div>
-    </div>
-    <% }) %> <% } else { %>
-    <h1>No items available.</h1>
-    <% } %>
-</div>
+
+    <script type="module">
+        import { validateDeleteItemForm } from '/js/validateForms.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            validateDeleteItemForm();
+        });
+    </script>
+</body>
