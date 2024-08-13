@@ -19,7 +19,8 @@
             <!-- MAIN CONTENT OR FORM -->
             <% if (locals.form) { %>
             <!-- Render the form if the 'form' variable is set -->
-            <%- include(form, { title: locals.title }) %> <% } else { %>
+            <%- include(form, { title: locals.title, allCategories:
+            locals.allCategories || [] }) %> <% } else { %>
             <!-- Render the main content if no form is to be displayed -->
             <%- include('main', { items: items }) %> <% } %>
         </div>
