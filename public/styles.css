@@ -185,6 +185,10 @@ button {
     align-self: self-start;
 }
 
+.item-category {
+    margin-top: 10px;
+}
+
 .buttons {
     display: flex;
     gap: 10px;
