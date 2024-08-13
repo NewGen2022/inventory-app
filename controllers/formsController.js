@@ -1,4 +1,8 @@
-import { getAllCategoriesQuery, addNewCategoryQuery } from '../db/queries.js';
+import {
+    getAllCategoriesQuery,
+    addNewCategoryQuery,
+    deleteCategoryQuery,
+} from '../db/queries.js';
 
 // rendering new form according to request URL
 const newForm = async (req, res) => {
@@ -14,6 +18,7 @@ const newForm = async (req, res) => {
         item: {
             create: 'addItemForm',
             delete: 'deleteItemForm',
+            edit: 'editItemForm',
         },
     };
 
@@ -26,6 +31,7 @@ const newForm = async (req, res) => {
         form: formTemplate,
         title: message,
         allCategories: allCategories,
+        activePage: formTemplate,
     });
 };
 
@@ -36,7 +42,14 @@ const handleCategoryAdding = async (req, res) => {
     res.status(200).redirect('/allItems');
 };
 
-export { newForm, handleCategoryAdding };
+const handleCategoryDeleting = async (req, res) => {
+    const newCategory = req.body.categoryId;
+    deleteCategoryQuery(newCategory);
+
+    res.status(200).redirect('/allItems');
+};
+
+export { newForm, handleCategoryAdding, handleCategoryDeleting };
 
 const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
