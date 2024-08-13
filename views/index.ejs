@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/icon" href="/horn-of-odin.png" />
         <title>Odin Market</title>
-        <link rel="stylesheet" href="/styles.css" />
-        <link rel="stylesheet" href="/forms.css" />
+        <link rel="icon" type="image/icon" href="/horn-of-odin.png" />
+        <link rel="stylesheet" href="/styles/styles.css" />
+        <link rel="stylesheet" href="/styles/forms.css" />
     </head>
     <body>
         <div id="header"><a href="/allItems">OdinMarket</a></div>
@@ -25,4 +25,15 @@
             <%- include('main', { items: items }) %> <% } %>
         </div>
     </body>
+
+    <script type="module">
+        import {
+            validateAddCategoryForm,
+            validateDeleteCategoryForm,
+        } from '/js/validateForms.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            validateAddCategoryForm();
+            validateDeleteCategoryForm();
+        });
+    </script>
 </html>
