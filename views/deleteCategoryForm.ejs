@@ -18,20 +18,4 @@
             <button class="delete-btn form-btn" type="submit">Delete</button>
         </form>
     </div>
-
-    <script>
-        document
-            .querySelector('.delete-form.category-form')
-            .addEventListener('submit', function (event) {
-                const categorySelect =
-                    document.getElementById('category-to-delete');
-
-                // Check if the select element exists and has options
-                if (!categorySelect) {
-                    // Prevent form submission if there are no categories to select
-                    event.preventDefault();
-                    alert('Cannot delete nothing. No categories available.');
-                }
-            });
-    </script>
 </body>
