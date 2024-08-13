@@ -17,30 +17,4 @@
             <button class="add-btn form-btn" type="submit">Submit</button>
         </form>
     </div>
-
-    <!-- Validate input, so it would not be empty -->
-    <script>
-        document
-            .querySelector('.add-form.category-form')
-            .addEventListener('submit', function (event) {
-                const inputField = document.getElementById('category-name');
-                const trimmedValue = inputField.value.trim();
-
-                // Regular expression to check for numbers
-                const containsNumbers = /\d/.test(trimmedValue);
-
-                if (trimmedValue === '') {
-                    // Prevent form submission if input is empty after trimming
-                    event.preventDefault();
-                    alert('Category name cannot be empty or whitespace.');
-                } else if (containsNumbers) {
-                    // Prevent form submission if input contains numbers
-                    event.preventDefault();
-                    alert('Category name cannot contain numbers.');
-                } else {
-                    // Set the value to the trimmed version
-                    inputField.value = trimmedValue;
-                }
-            });
-    </script>
 </body>
