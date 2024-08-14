@@ -1,0 +1,67 @@
+<body>
+    <div class="form-container">
+        <h1><%= locals.title %></h1>
+        <form
+            class="update-item-form category-form"
+            action="/form/item/edit/<%= item.id %>"
+            method="POST"
+        >
+            <label for="item-name">Name</label>
+            <input
+                type="text"
+                id="item-name"
+                name="itemName"
+                placeholder="Enter item name..."
+                value="<%= item.name %>"
+                required
+            />
+            <label for="item-category">Category</label>
+            <select name="categoryId" id="item-category-select">
+                <% locals.allCategories.forEach((category) => { %>
+                <option value="<%= category.id %>" <% if (item.category_name === category.name) { %> selected <% } %>><%= category.name %></option>
+                <% }) %>
+            </select>
+            <label for="item-description">Description</label>
+            <textarea
+                name="itemDescription"
+                id="item-description"
+                placeholder="Enter item description..."
+                maxlength="500"
+                minlength="20"
+                rows="5"
+                required
+            >
+<%= item.description %></textarea
+            >
+            <label for="item-price">Price</label>
+            <div id="price-container">
+                <span id="input-price-sign">$</span>
+                <input
+                    type="number"
+                    id="item-price"
+                    name="itemPrice"
+                    placeholder="Enter item price..."
+                    value="<%= item.price %>"
+                    required
+                />
+            </div>
+            <label for="item-img">Image</label>
+            <input
+                type="text"
+                id="item-img"
+                name="itemImageUrl"
+                placeholder="Enter item image url..."
+                value="<%= item.image_url %>"
+                required
+            />
+            <button class="add-btn form-btn" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script type="module">
+        import { validateAddItemForm } from '/js/validateForms.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            validateAddItemForm();
+        });
+    </script>
+</body>
