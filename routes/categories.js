@@ -15,9 +15,6 @@ router.get('/category/:id', getAllCategoryItems);
 // route for getting item by id
 router.get('/item/:id', getItem);
 
-// route for getting item by id for its editing
-router.get('/item/:id/edit', getItem);
-
 // route for item deleting
 router.post('/item/:id', handleItemChanging);
 
