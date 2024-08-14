@@ -1,16 +1,18 @@
 import {
     getAllCategoriesQuery,
+    getItemByIdQuery,
     addNewCategoryQuery,
     addNewItemQuery,
     deleteCategoryQuery,
     deleteItemQueryById,
+    updateItemQueryById,
 } from '../db/queries.js';
 
 // rendering new form according to request URL
 const newForm = async (req, res) => {
     const allCategories = await getAllCategoriesQuery();
 
-    const { formType: formType, action } = req.params;
+    let { formType, action, id } = req.params;
 
     const formDetails = {
         category: {
@@ -24,7 +26,16 @@ const newForm = async (req, res) => {
         },
     };
 
-    const formTemplate = formDetails[formType]?.[action];
+    let formTemplate = formDetails[formType]?.[action];
+
+    let item = [];
+    if (id) {
+        item = await getItemByIdQuery(id);
+        if (!item) {
+            return res.status(404).render('404', { message: 'Item Not Found' });
+        }
+    }
+
     if (!formTemplate || formTemplate === 'deleteItemForm') {
         return res.status(404).render('404', { message: 'Page Not Found' });
     }
@@ -37,6 +48,7 @@ const newForm = async (req, res) => {
         title: message,
         allCategories: allCategories,
         activePage: formTemplate,
+        item: item[0],
     });
 };
 
@@ -98,9 +110,42 @@ const handleItemChanging = async (req, res) => {
             res.status(500).send('Error deleting item');
         }
     } else if (action === 'edit') {
-        res.status(303).redirect(`/allItems/item/${itemIdToChange}/edit`);
+        res.status(303).redirect(`/form/item/edit/${itemIdToChange}`);
     } else {
         res.status(400).render('404', { message: 'Invalid action' });
+    }
+};
+
+// Block controller to update something
+const handleItemEditing = async (req, res) => {
+    const itemIdToEdit = req.params.id;
+
+    if (!itemIdToEdit || isNaN(itemIdToEdit)) {
+        return res.status(400).render('404', { message: 'Invalid item ID.' });
+    }
+
+    const updatedItem = {
+        itemName: req.body.itemName,
+        itemCategory: req.body.categoryId,
+        itemDescription: req.body.itemDescription,
+        itemPrice: req.body.itemPrice,
+        itemImageUrl: req.body.itemImageUrl,
+        itemId: itemIdToEdit,
+    };
+
+    try {
+        const result = await updateItemQueryById(updatedItem);
+
+        if (result) {
+            res.status(200).redirect('/allItems');
+        } else {
+            res.status(404).render('404', {
+                message: 'Item not found or not updated.',
+            });
+        }
+    } catch (err) {
+        console.error('Error updating item:', err.stack);
+        res.status(500).send('Error updating item');
     }
 };
 
@@ -110,6 +155,7 @@ export {
     handleItemAdding,
     handleCategoryDeleting,
     handleItemChanging,
+    handleItemEditing,
 };
 
 const capitalizeFirstLetter = (string) => {
