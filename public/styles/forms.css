@@ -112,10 +112,12 @@ textarea:focus {
     transform: scale(0.95);
 }
 
-.add-btn {
+.add-btn,
+.update-btn {
     border-color: rgb(98, 226, 255);
 }
-.add-btn:hover {
+.add-btn:hover,
+.update-btn:hover {
     background-color: rgb(98, 226, 255);
 }
 
