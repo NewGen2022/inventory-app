@@ -17,4 +17,11 @@
             <button class="add-btn form-btn" type="submit">Submit</button>
         </form>
     </div>
+
+    <script type="module">
+        import { validateAddCategoryForm } from '/js/validateForms.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            validateAddCategoryForm();
+        });
+    </script>
 </body>
