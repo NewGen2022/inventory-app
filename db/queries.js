@@ -107,8 +107,15 @@ const addNewCategoryQuery = async (categoryName) => {
 
 const addNewItemQuery = async (newItem) => {
     try {
-        const query =
-            'INSERT INTO items(category_id, name, description, price, image_url) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (name) DO NOTHING RETURNING name;';
+        const query = `INSERT INTO 
+                items(category_id, name, description, price, image_url) 
+            VALUES 
+                ($1, $2, $3, $4, $5) 
+            ON CONFLICT
+                (name) 
+            DO NOTHING RETURNING 
+                name;
+            `;
         const itemToAdd = [
             newItem.itemCategory,
             newItem.itemName,
@@ -179,6 +186,47 @@ const deleteItemQueryById = async (itemId) => {
 };
 
 // Block to update something in database
+const updateItemQueryById = async (updatedItem) => {
+    try {
+        const query = `
+            UPDATE items
+            SET
+                category_id = $1,
+                name = $2,
+                description = $3,
+                price = $4,
+                image_url = $5
+            WHERE
+                id = $6
+            RETURNING name;
+        `;
+
+        const values = [
+            updatedItem.itemCategory,
+            updatedItem.itemName,
+            updatedItem.itemDescription,
+            updatedItem.itemPrice,
+            updatedItem.itemImageUrl,
+            updatedItem.itemId,
+        ];
+
+        const result = await pool.query(query, values);
+        const itemUpdated = result.rows[0]?.name;
+
+        if (itemUpdated) {
+            console.log(`${itemUpdated} successfully updated in items`);
+            return true;
+        } else {
+            console.log(
+                `Item with ID "${updatedItem.itemId}" not found or not updated`
+            );
+            return false;
+        }
+    } catch (err) {
+        console.error('Error updating item:', err.stack);
+        throw err;
+    }
+};
 
 export {
     getAllItemsQuery,
@@ -189,4 +237,5 @@ export {
     addNewItemQuery,
     deleteCategoryQuery,
     deleteItemQueryById,
+    updateItemQueryById,
 };
