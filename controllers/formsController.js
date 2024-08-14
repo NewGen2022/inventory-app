@@ -125,7 +125,7 @@ const handleItemEditing = async (req, res) => {
     }
 
     const updatedItem = {
-        itemName: req.body.itemName,
+        itemName: capitalizeFirstLetter(req.body.itemName),
         itemCategory: req.body.categoryId,
         itemDescription: req.body.itemDescription,
         itemPrice: req.body.itemPrice,
