@@ -20,20 +20,10 @@
             <% if (locals.form) { %>
             <!-- Render the form if the 'form' variable is set -->
             <%- include(form, { title: locals.title, allCategories:
-            locals.allCategories || [] }) %> <% } else { %>
+            locals.allCategories || [], item: locals.item || {} }) %> <% } else
+            { %>
             <!-- Render the main content if no form is to be displayed -->
-            <%- include('main', { items: items }) %> <% } %>
+            <%- include('main', { items: locals.items || [] }) %> <% } %>
         </div>
     </body>
-
-    <script type="module">
-        import {
-            validateAddCategoryForm,
-            validateDeleteCategoryForm,
-        } from '/js/validateForms.js';
-        document.addEventListener('DOMContentLoaded', () => {
-            validateAddCategoryForm();
-            validateDeleteCategoryForm();
-        });
-    </script>
 </html>
