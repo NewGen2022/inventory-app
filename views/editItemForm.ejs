@@ -54,14 +54,14 @@
                 value="<%= item.image_url %>"
                 required
             />
-            <button class="add-btn form-btn" type="submit">Submit</button>
+            <button class="update-btn form-btn" type="submit">Submit</button>
         </form>
     </div>
 
     <script type="module">
-        import { validateAddItemForm } from '/js/validateForms.js';
+        import { validateEditItemForm } from '/js/validateForms.js';
         document.addEventListener('DOMContentLoaded', () => {
-            validateAddItemForm();
+            validateEditItemForm();
         });
     </script>
 </body>
