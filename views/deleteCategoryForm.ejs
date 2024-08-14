@@ -18,4 +18,11 @@
             <button class="delete-btn form-btn" type="submit">Delete</button>
         </form>
     </div>
+
+    <script type="module">
+        import { validateDeleteCategoryForm } from '/js/validateForms.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            validateDeleteCategoryForm();
+        });
+    </script>
 </body>
