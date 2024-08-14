@@ -1,4 +1,8 @@
 .form-container {
+    --blue-box-shadow: 0 0 0 1px rgb(98, 226, 255),
+        0 0 0 2px rgb(98, 226, 255, 0.5), 0 0 0 4px rgb(98, 226, 255, 0.25);
+    --red-box-shadow: 0 0 0 1px rgb(255, 0, 0), 0 0 0 2px rgb(255, 0, 0, 0.5),
+        0 0 0 4px rgb(255, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
     padding: 0 5vw;
@@ -19,9 +23,7 @@ input[type='text'] {
     font-size: 16px;
 }
 input[type='text']:focus {
-    /* border: 2px solid rgb(109, 109, 255); */
-    box-shadow: 0 0 0 1px rgb(98, 226, 255), 0 0 0 2px rgb(98, 226, 255, 0.5),
-        0 0 0 4px rgb(98, 226, 255, 0.25);
+    box-shadow: var(--blue-box-shadow);
 }
 
 #category-to-delete {
@@ -32,9 +34,62 @@ input[type='text']:focus {
     border-radius: 5px;
 }
 #category-to-delete:focus {
-    /* border: 2px solid rgb(109, 109, 255); */
-    box-shadow: 0 0 0 1px rgb(255, 0, 0), 0 0 0 2px rgb(255, 0, 0, 0.5),
-        0 0 0 4px rgb(255, 0, 0, 0.25);
+    box-shadow: var(--red-box-shadow);
+}
+
+#item-category-select {
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+#item-category-select:focus {
+    box-shadow: var(--blue-box-shadow);
+}
+
+textarea {
+    resize: vertical;
+    border-radius: 5px;
+    padding: 7px;
+    outline: none;
+    min-height: 50px;
+    margin: 10px 0;
+}
+textarea:focus {
+    box-shadow: var(--blue-box-shadow);
+}
+
+#price-container {
+    display: flex;
+    margin: 10px 0;
+}
+
+#input-price-sign {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    background-color: rgb(111, 111, 111);
+    border-radius: 5px 0 0 5px;
+}
+
+#item-price {
+    padding: 10px 15px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid grey;
+    font-size: 16px;
+    border-radius: 0 5px 5px 0;
+}
+#item-price:focus {
+    box-shadow: var(--blue-box-shadow);
+}
+
+#item-img {
+    margin: 10px 0;
 }
 
 /* BUTTONS STYLES */
@@ -46,7 +101,7 @@ input[type='text']:focus {
     background-color: #242424;
     color: white;
     font-size: 16px;
-    margin-top: 10px;
+    margin: 15px 0;
 }
 
 .form-btn:hover {
