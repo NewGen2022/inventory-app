@@ -17,6 +17,7 @@ const getAllItemsQuery = async () => {
         return allItems.rows;
     } catch (err) {
         console.error('Error executing query', err.stack);
+        throw err;
     }
 };
 
@@ -39,6 +40,7 @@ const getAllCategoryItemsByIdQuery = async (id) => {
         return allCategoryItemsById.rows;
     } catch (err) {
         console.error('Error executing query', err.stack);
+        throw err;
     }
 };
 
@@ -67,6 +69,7 @@ const getItemByIdQuery = async (id) => {
         return itemById.rows;
     } catch (err) {
         console.error('Error executing query', err.stack);
+        throw err;
     }
 };
 
@@ -81,7 +84,7 @@ const getAllCategoriesQuery = async () => {
 const addNewCategoryQuery = async (categoryName) => {
     try {
         const query =
-            'INSERT INTO categories(name) VALUES($1) ON CONFLICT (name) DO NOTHING RETURNING name';
+            'INSERT INTO categories(name) VALUES($1) ON CONFLICT (name) DO NOTHING RETURNING name;';
         const categoryToAdd = [categoryName];
 
         const result = await pool.query(query, categoryToAdd);
@@ -97,7 +100,35 @@ const addNewCategoryQuery = async (categoryName) => {
             return false;
         }
     } catch (err) {
-        console.error('Error inserting category:', err);
+        console.error('Error adding category:', err.stack);
+        throw err;
+    }
+};
+
+const addNewItemQuery = async (newItem) => {
+    try {
+        const query =
+            'INSERT INTO items(category_id, name, description, price, image_url) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (name) DO NOTHING RETURNING name;';
+        const itemToAdd = [
+            newItem.itemCategory,
+            newItem.itemName,
+            newItem.itemDescription,
+            newItem.itemPrice,
+            newItem.itemImageUrl,
+        ];
+
+        const result = await pool.query(query, itemToAdd);
+        const itemAdded = result.rows[0]?.name;
+
+        if (itemAdded) {
+            console.log(`${itemAdded} successfully added to item`);
+            return true;
+        } else {
+            console.log(`Item "${itemAdded}" already exists or was not added`);
+            return false;
+        }
+    } catch (err) {
+        console.error('Error adding item:', err.stack);
         throw err;
     }
 };
@@ -121,7 +152,7 @@ const deleteCategoryQuery = async (categoryId) => {
             return false;
         }
     } catch (err) {
-        console.error('Error deleting category:', err);
+        console.error('Error deleting category:', err.stack);
         throw err;
     }
 };
@@ -142,7 +173,7 @@ const deleteItemQueryById = async (itemId) => {
             return false;
         }
     } catch (err) {
-        console.error('Error deleting category:', err);
+        console.error('Error deleting category:', err.stack);
         throw err;
     }
 };
@@ -155,6 +186,7 @@ export {
     getItemByIdQuery,
     getAllCategoriesQuery,
     addNewCategoryQuery,
+    addNewItemQuery,
     deleteCategoryQuery,
     deleteItemQueryById,
 };
