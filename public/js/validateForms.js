@@ -63,10 +63,11 @@ const validateAddItemForm = () => {
 
         // Validate item image URL (basic URL validation)
         const itemImageUrl = document.getElementById('item-img').value.trim();
-        const urlPattern =
-            /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
-        if (!urlPattern.test(itemImageUrl)) {
-            alert('Please enter a valid image URL.');
+        const urlPattern = /^https:\/\/.+$/;
+        if (itemImageUrl.length <= 10 || !urlPattern.test(itemImageUrl)) {
+            alert(
+                'Please enter a valid image URL that begins with "https://" and is longer than 10 characters.'
+            );
             isValid = false;
         }
 
@@ -111,9 +112,65 @@ const validateDeleteItemForm = () => {
     });
 };
 
+const validateEditItemForm = () => {
+    const form = document.querySelector('.update-item-form');
+
+    form.addEventListener('submit', function (event) {
+        let isValid = true;
+
+        // Validate item name (ensure it's not empty and has at least 3 characters)
+        const itemName = document.getElementById('item-name').value.trim();
+        if (itemName.length < 3) {
+            alert('Item name must be at least 3 characters long.');
+            isValid = false;
+        }
+
+        // Validate item category (ensure a category is selected)
+        const categoryId = document.getElementById(
+            'item-category-select'
+        ).value;
+        if (categoryId === '') {
+            alert('Please select a category.');
+            isValid = false;
+        }
+
+        // Validate item description (ensure it's within the character limit)
+        const itemDescription = document
+            .getElementById('item-description')
+            .value.trim();
+        if (itemDescription.length < 20 || itemDescription.length > 500) {
+            alert('Item description must be between 20 and 500 characters.');
+            isValid = false;
+        }
+
+        // Validate item price (ensure it's a positive number)
+        const itemPrice = document.getElementById('item-price').value;
+        if (isNaN(itemPrice) || itemPrice <= 0) {
+            alert('Please enter a valid price greater than 0.');
+            isValid = false;
+        }
+
+        // Validate item image URL (basic URL validation)
+        const itemImageUrl = document.getElementById('item-img').value.trim();
+        const urlPattern = /^https:\/\/.+$/;
+        if (itemImageUrl.length <= 10 || !urlPattern.test(itemImageUrl)) {
+            alert(
+                'Please enter a valid image URL that begins with "https://" and is longer than 10 characters.'
+            );
+            isValid = false;
+        }
+
+        // If any validation fails, prevent the form from being submitted
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+};
+
 export {
     validateAddCategoryForm,
     validateAddItemForm,
     validateDeleteCategoryForm,
     validateDeleteItemForm,
+    validateEditItemForm,
 };
