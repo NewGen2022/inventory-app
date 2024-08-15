@@ -33,6 +33,8 @@ const getAllCategoryItemsByIdQuery = async (id) => {
                 items
             WHERE 
                 category_id = $1;
+            ORDER BY 
+                    items.name;
         `;
 
         const allCategoryItemsById = await pool.query(query, [id]);
