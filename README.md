@@ -10,6 +10,7 @@
 - ExpressJS
 - EJS (for frontend/templating)
 - PostgreSQL
+- CSS for styling
 - adaptable.io to deploy everything
 
 # Functionality of the app
