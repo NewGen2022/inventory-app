@@ -68,7 +68,7 @@ const handleCategoryAdding = async (req, res) => {
 
 const handleItemAdding = async (req, res) => {
     const newItem = {
-        itemName: req.body.itemName,
+        itemName: capitalizeFirstLetter(req.body.itemName),
         itemCategory: req.body.categoryId,
         itemDescription: req.body.itemDescription,
         itemPrice: req.body.itemPrice,
