@@ -27,16 +27,21 @@ const getAllCategoryItemsByIdQuery = async (id) => {
             SELECT 
                 items.id,
                 items.name, 
+                items.description, 
                 items.price, 
-                items.image_url
+                items.image_url, 
+                categories.name AS category_name 
             FROM 
-                items
+                items 
+            LEFT JOIN 
+                categories 
+            ON 
+                items.category_id = categories.id
             WHERE 
-                category_id = $1
+                items.category_id = $1
             ORDER BY 
                 items.name;
         `;
-
         const allCategoryItemsById = await pool.query(query, [id]);
 
         return allCategoryItemsById.rows;
