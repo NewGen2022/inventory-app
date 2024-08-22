@@ -1,6 +1,6 @@
 <h1 align="center">Inventory CRUD App (Odin Market)</h1>
 <p align="center"> <strong><i>This app build as a part of Odin Project Project Curriculum to practice ExpressJS, EJS and PostgreSQL</strong></i> </p>
-<h2 align="center"><a href="https://odinmarket-inventory-app.adaptable.app/allItems" target="_blank">Live Preview</a></h2>
+<h2 align="center"><a href="https://odin-market.adaptable.app/" target="_blank">Live Preview</a></h2>
 
 <p align="center">
   <img src="https://github.com/NewGen2022/inventory_app/blob/main/public/horn-of-odin.png" alt="App Icon">
